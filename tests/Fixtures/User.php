@@ -6,7 +6,7 @@ use Hemp\Machinery\Machinable;
 use Hemp\Machinery\Machinery;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements Machinable
+class User extends Model
 {
     use Machinery;
 

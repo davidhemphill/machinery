@@ -19,6 +19,7 @@ class MachineryTest extends IntegrationTestCase
         $user->transitionTo('status', Status::Inactive);
 
         $this->assertEquals(Status::Inactive, $user->status);
+        $this->assertTrue($user->status->is(Status::Inactive));
     }
 
     public function testCannotTransitionToAnInvalidState()
@@ -28,6 +29,8 @@ class MachineryTest extends IntegrationTestCase
             'name' => 'Hemp',
             'status' => Status::Banned
         ]);
+
+        $this->assertFalse($user->canTransitionTo('status', Status::Active));
 
         $this->expectException(InvalidStateTransition::class);
 

@@ -4,11 +4,6 @@ namespace Hemp\Machinery;
 
 trait Machinery
 {
-    public function transition(): PendingTransition
-    {
-        return new PendingTransition($this);
-    }
-
     public function transitionTo($machineKey, MachineState $state, ?callable $sideEffect = null): MachineState
     {
         $sideEffect = $sideEffect ?? fn () => null;
@@ -19,5 +14,10 @@ trait Machinery
         };
 
         return $this->{$machineKey}->transitionTo($state, $callable);
+    }
+
+    public function canTransitionTo($machineKey, MachineState $state): bool
+    {
+        return $this->{$machineKey}->canTransitionTo($state);
     }
 }

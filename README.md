@@ -51,11 +51,10 @@ enum OrderStatus: string implements MachineState
 Next, add a column to your Eloquent model's `casts` to store the state:
 
 ```php
-use Hemp\Machinery\Machinable;
 use Hemp\Machinery\Machinery;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model implements Machinable
+class Order extends Model
 {
     use Machinery;
 

@@ -8,7 +8,5 @@ interface MachineState
 
     public static function transitions(): array;
 
-    public function canTransitionTo(MachineState $state): bool;
-
     public function isValidTransition(MachineState $state): bool;
 }

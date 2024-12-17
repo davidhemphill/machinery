@@ -4,7 +4,7 @@ namespace Hemp\Machinery;
 
 trait Machinery
 {
-    public function transitionTo($machineKey, MachineState $state, ?callable $sideEffect = null): MachineState
+    public function transitionTo($machineKey, MachineryState $state, ?callable $sideEffect = null): MachineryState
     {
         $sideEffect = $sideEffect ?? fn () => null;
 
@@ -16,7 +16,7 @@ trait Machinery
         return $this->{$machineKey}->transitionTo($state, $callable);
     }
 
-    public function canTransitionTo($machineKey, MachineState $state): bool
+    public function canTransitionTo($machineKey, MachineryState $state): bool
     {
         return $this->{$machineKey}->canTransitionTo($state);
     }

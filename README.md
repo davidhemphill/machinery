@@ -17,15 +17,16 @@ composer require hemp/machinery
 
 ## Usage
 
-First, create an enumeration that represents the states for your Eloquent model and the valid transitions between them:
+First, create an enumeration that represents the states you wish to 
+model and the valid transitions between them:
 
 ```php
-use Hemp\Machinery\MachineState;
-use Hemp\Machinery\MachineStateTrait;
+use Hemp\Machinery\MachineryState;
+use Hemp\Machinery\MachineryEnumeration;
 
-enum OrderStatus: string implements MachineState
+enum OrderStatus: string implements MachineryState
 {
-    use MachineStateTrait;
+    use MachineryEnumeration;
 
     case Processing : 'processing';
     case Shipped : 'shipped';
@@ -47,6 +48,24 @@ enum OrderStatus: string implements MachineState
     }
 }
 ```
+
+Now you can use the `OrderStatus` enumeration to manage transitions 
+between states:
+
+```php
+use Hemp\Machinery\Machinery;
+
+OrderStatus::Processing->canTransitionTo(OrderStatus::Shipped); // true
+OrderStatus::Processing->transitionTo(OrderStatus::Shipped); // state is now 'shipped'
+
+OrderStatus::Shipped->canTransitionTo(OrderStatus::Delivered); // true
+OrderStatus::Shipped->transitionTo(OrderStatus::Delivered); // state is now 'delivered'
+
+OrderStatus::Delivered->canTransitionTo(OrderStatus::Processing); // 
+OrderStatus::Delivered->transitionTo(OrderStatus::Processing); // Throws an exception...
+```
+
+## Using the state machine with Eloquent
 
 Next, add a column to your Eloquent model's `casts` to store the state:
 

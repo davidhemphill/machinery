@@ -5,30 +5,29 @@ namespace Hemp\Machinery;
 /**
  * @method static transitions()
  */
-trait MachineStateTrait
+trait MachineryEnumeration
 {
     /**
      * @throws InvalidStateTransition
      */
-    public function transitionTo(MachineState $state, ?callable $sideEffect = null): MachineState
+    public function transitionTo(MachineryState $state, ?callable $sideEffect = null): MachineryState
     {
-        $callback = $sideEffect ?? fn () => null;
 
-        if (! $this->canTransitionTo($state)) {
+        if (!$this->canTransitionTo($state)) {
             throw new InvalidStateTransition("Cannot transition from state [{$this->value}] to state [{$state->value}].");
         }
 
-        $callback();
+        call_user_func($sideEffect ?? fn() => null);
 
         return $state;
     }
 
-    public function canTransitionTo(MachineState $state): bool
+    public function canTransitionTo(MachineryState $state): bool
     {
         return in_array($state, self::transitions()[$this->value]);
     }
 
-    public function is(MachineState $state): bool
+    public function is(MachineryState $state): bool
     {
         return $this->value === $state->value;
     }

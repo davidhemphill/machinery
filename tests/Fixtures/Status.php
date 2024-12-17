@@ -2,12 +2,12 @@
 
 namespace Hemp\Machinery\Tests\Fixtures;
 
-use Hemp\Machinery\MachineState;
-use Hemp\Machinery\MachineStateTrait;
+use Hemp\Machinery\MachineryState;
+use Hemp\Machinery\MachineryEnumeration;
 
-enum Status: string implements MachineState
+enum Status: string implements MachineryState
 {
-    use MachineStateTrait;
+    use MachineryEnumeration;
 
     case Active = 'active';
 

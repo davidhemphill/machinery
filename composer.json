@@ -1,0 +1,27 @@
+{
+    "name": "hemp/machinery",
+    "description": "Simple Laravel Eloquent model state machines",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hemp\\Machinery\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hemp\\Machinery\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hemp",
+            "email": "hemp@hey.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/database": "^6.0",
+        "orchestra/testbench": "^6.47",
+        "phpunit/phpunit": "^9.6"
+    }
+}

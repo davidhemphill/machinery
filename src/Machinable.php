@@ -2,7 +2,7 @@
 
 namespace Hemp\Machinery;
 
-interface Machineable
+interface Machinable
 {
 
 }

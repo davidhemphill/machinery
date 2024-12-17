@@ -4,7 +4,7 @@ namespace Hemp\Machinery;
 
 trait Machinery
 {
-    public function transition()
+    public function transition(): PendingTransition
     {
         return new PendingTransition($this);
     }
@@ -14,8 +14,8 @@ trait Machinery
         $sideEffect = $sideEffect ?? fn () => null;
 
         $callable = function () use ($state, $machineKey, $sideEffect) {
-            $sideEffect();
             $this->update([$machineKey => $state]);
+            $sideEffect();
         };
 
         return $this->{$machineKey}->transitionTo($state, $callable);

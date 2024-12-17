@@ -1,6 +1,6 @@
 <?php
 
-namespace Hemp\Tests;
+namespace Hemp\Machinery\Tests;
 
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase;
@@ -20,7 +20,7 @@ class IntegrationTestCase extends TestCase
         Schema::create('users', function ($table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('state');
+            $table->string('status');
             $table->timestamps();
         });
     }

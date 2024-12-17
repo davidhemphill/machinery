@@ -1,10 +1,9 @@
 <?php
 
-namespace Hemp\Tests\Fixtures;
+namespace Hemp\Machinery\Tests\Fixtures;
 
 use Hemp\Machinery\MachineState;
 use Hemp\Machinery\MachineStateTrait;
-use Override;
 
 enum Status: string implements MachineState
 {

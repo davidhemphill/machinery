@@ -2,6 +2,7 @@
 
 namespace Hemp\Machinery\Tests;
 
+use Exception;
 use Hemp\Machinery\InvalidStateTransition;
 use Hemp\Machinery\Tests\Fixtures\Status;
 use Hemp\Machinery\Tests\Fixtures\User;
@@ -48,5 +49,22 @@ class MachineryTest extends IntegrationTestCase
         $user->transitionTo('status', Status::Inactive, fn () => $user->update(['name' => 'Hempington']));
 
         $this->assertEquals('Hempington', $user->name);
+    }
+
+    public function testSideEffectsReceiveTheCurrentModel()
+    {
+        /** @var User $user */
+        $user = User::create([
+            'name' => 'Hemp',
+            'status' => Status::Active
+        ]);
+
+        $user->transitionTo(
+            'status',
+            Status::Inactive,
+            fn (User $user) => $user->update(['name' => 'Side Effects'])
+        );
+
+        $this->assertEquals('Side Effects', $user->name);
     }
 }

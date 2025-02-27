@@ -9,8 +9,9 @@ trait Machinery
         $sideEffect = $sideEffect ?? fn () => null;
 
         $callable = function () use ($state, $machineKey, $sideEffect) {
-            $this->update([$machineKey => $state]);
-            $sideEffect();
+            $sideEffect($this);
+            $this->$machineKey = $state;
+            $this->save();
         };
 
         return $this->{$machineKey}->transitionTo($state, $callable);

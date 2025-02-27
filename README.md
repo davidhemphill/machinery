@@ -93,8 +93,10 @@ $order = Order::create([
 $order->status->is(OrderStatus::Processing); // true
 $order->status->canTransitionTo(OrderStatus::Shipped); // true
 
-$order->status->transitionTo('status', OrderStatus::Shipped, function () {
-    // Perform any actions that need to be done when the state changes...
+$order->status->transitionTo('status', OrderStatus::Shipped, function (Order $order) {
+    // Perform any side effects that need to happen before
+    // the state change is persisted to the database...
+    $order->status_changed_at = now();
 });
 
 $order->status->is(OrderStatus::Shipped); // true

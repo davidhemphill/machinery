@@ -12,7 +12,6 @@ trait MachineryEnumeration
      */
     public function transitionTo(MachineryState $state, ?callable $sideEffect = null): MachineryState
     {
-
         if (!$this->canTransitionTo($state)) {
             throw new InvalidStateTransition("Cannot transition from state [{$this->value}] to state [{$state->value}].");
         }

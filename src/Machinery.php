@@ -6,15 +6,16 @@ trait Machinery
 {
     public function transitionTo($machineKey, MachineryState $state, ?callable $sideEffect = null): MachineryState
     {
-        $sideEffect = $sideEffect ?? fn () => null;
+        if (!$this->canTransitionTo($machineKey, $state)) {
+            throw new InvalidStateTransition("Cannot transition from state [{$this->{$machineKey}->value}] to state [{$state->value}].");
+        }
 
-        $callable = function () use ($state, $machineKey, $sideEffect) {
-            $sideEffect($this);
-            $this->$machineKey = $state;
-            $this->save();
-        };
+        ($sideEffect ?? fn() => null)($this);
 
-        return $this->{$machineKey}->transitionTo($state, $callable);
+        $this->$machineKey = $state;
+        $this->save();
+
+        return $state;
     }
 
     public function canTransitionTo($machineKey, MachineryState $state): bool

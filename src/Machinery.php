@@ -6,9 +6,7 @@ trait Machinery
 {
     public function transitionTo($machineKey, MachineryState $state, ?callable $sideEffect = null): MachineryState
     {
-        if (!$this->canTransitionTo($machineKey, $state)) {
-            throw new InvalidStateTransition("Cannot transition from state [{$this->{$machineKey}->value}] to state [{$state->value}].");
-        }
+        $state = $this->{$machineKey}->transitionTo($state);
 
         ($sideEffect ?? fn() => null)($this);
 

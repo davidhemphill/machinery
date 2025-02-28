@@ -62,7 +62,7 @@ class MachineryTest extends IntegrationTestCase
         $user->transitionTo(
             'status',
             Status::Inactive,
-            fn (User $user) => $user->update(['name' => 'Side Effects'])
+            fn(User $user) => $user->update(['name' => 'Side Effects'])
         );
 
         $this->assertEquals('Side Effects', $user->name);
